@@ -32,38 +32,38 @@ const UserCard = ({ type, index = 0 }: { type: string; index?: number }) => {
   const getColorScheme = () => {
     const colorSchemes = [
       {
-        blur: isDarkTheme ? "bg-blue-900/20" : "bg-blue-100/50",
+        // blur: isDarkTheme ? "bg-blue-900/20" : "bg-blue-100/50",
         icon: isDarkTheme ? "bg-blue-900/30" : "bg-blue-100",
         text: isDarkTheme ? "text-blue-400" : "text-blue-600",
-        border: isDarkTheme ? "border-blue-800/40" : "border-blue-200",
+        // border: isDarkTheme ? "border-blue-800/40" : "border-blue-200",
         glow: isDarkTheme ? "bg-blue-900/10" : "",
       },
       {
-        blur: isDarkTheme ? "bg-purple-900/20" : "bg-purple-100/50",
+        // blur: isDarkTheme ? "bg-purple-900/20" : "bg-purple-100/50",
         icon: isDarkTheme ? "bg-purple-900/30" : "bg-purple-100",
         text: isDarkTheme ? "text-purple-400" : "text-purple-600",
-        border: isDarkTheme ? "border-purple-800/40" : "border-purple-200",
+        // border: isDarkTheme ? "border-purple-800/40" : "border-purple-200",
         glow: isDarkTheme ? "bg-purple-900/10" : "",
       },
       {
-        blur: isDarkTheme ? "bg-green-900/20" : "bg-green-100/50",
+        // blur: isDarkTheme ? "bg-green-900/20" : "bg-green-100/50",
         icon: isDarkTheme ? "bg-green-900/30" : "bg-green-100",
         text: isDarkTheme ? "text-green-400" : "text-green-600",
-        border: isDarkTheme ? "border-green-800/40" : "border-green-200",
+        // border: isDarkTheme ? "border-green-800/40" : "border-green-200",
         glow: isDarkTheme ? "bg-green-900/10" : "",
       },
       {
-        blur: isDarkTheme ? "bg-amber-900/20" : "bg-amber-100/50",
+        // blur: isDarkTheme ? "bg-amber-900/20" : "bg-amber-100/50",
         icon: isDarkTheme ? "bg-amber-900/30" : "bg-amber-100",
         text: isDarkTheme ? "text-amber-400" : "text-amber-600",
-        border: isDarkTheme ? "border-amber-800/40" : "border-amber-200",
+        // border: isDarkTheme ? "border-amber-800/40" : "border-amber-200",
         glow: isDarkTheme ? "bg-amber-900/10" : "",
       },
       {
-        blur: isDarkTheme ? "bg-rose-900/20" : "bg-rose-100/50",
+        // blur: isDarkTheme ? "bg-rose-900/20" : "bg-rose-100/50",
         icon: isDarkTheme ? "bg-rose-900/30" : "bg-rose-100",
         text: isDarkTheme ? "text-rose-400" : "text-rose-600",
-        border: isDarkTheme ? "border-rose-800/40" : "border-rose-200",
+        // border: isDarkTheme ? "border-rose-800/40" : "border-rose-200",
         glow: isDarkTheme ? "bg-rose-900/10" : "",
       },
     ];
@@ -101,7 +101,7 @@ const UserCard = ({ type, index = 0 }: { type: string; index?: number }) => {
 
   return (
     <motion.div
-      className={` backdrop-blur-md p-6 rounded-2xl shadow-xl border ${colorScheme.border} flex flex-col min-w-[300px] relative overflow-hidden ${colorScheme.glow}`}
+      className={`  p-6 backdrop-blur-md rounded-2xl  border  flex flex-col min-w-[300px] relative overflow-hidden ${colorScheme.glow}`}
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -115,7 +115,7 @@ const UserCard = ({ type, index = 0 }: { type: string; index?: number }) => {
     >
       {/* Blur effect in corner */}
       <div
-        className={`absolute -top-10 -right-10 w-32 h-32 ${colorScheme.blur} rounded-full blur-xl`}
+        className={`absolute -top-10 -right-10 w-32 h-32  rounded-full blur-xl`}
       />
 
       <motion.div
@@ -145,7 +145,7 @@ const UserCard = ({ type, index = 0 }: { type: string; index?: number }) => {
       </motion.h1>
 
       <motion.h2
-        className={`capitalize text-sm font-medium  relative z-10`}
+        className={`capitalize text-lg font-medium  relative z-10`}
         variants={itemVariants}
       >
         {type}s

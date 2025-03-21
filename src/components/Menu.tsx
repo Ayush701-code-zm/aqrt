@@ -1,55 +1,55 @@
 "use client";
 
 import { role } from "@/lib/data";
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Home, Gift, User, Settings, LogOut } from "lucide-react";
 
 const menuItems = [
   {
     title: "MENU",
-    color: "#4F46E5", // Indigo
+    color: "#4F46E5",
     items: [
       {
-        icon: "/home.png",
+        icon: <Home size={20} />,
         label: "Home",
         href: "/admin",
-        color: "#818CF8", // Lighter indigo
+        color: "#818CF8",
         visible: ["admin", "teacher", "student", "parent"],
       },
       {
-        icon: "/announcement.png",
-        label: "Announcements",
-        href: "/list/coupons",
-        color: "#6366F1", // Medium indigo
+        icon: <Gift size={20} />,
+        label: "Coupons",
+        href: "coupons",
+        color: "#6366F1",
         visible: ["admin", "teacher", "student", "parent"],
       },
     ],
   },
   {
     title: "OTHER",
-    color: "#10B981", // Emerald
+    color: "#10B981",
     items: [
       {
-        icon: "/profile.png",
+        icon: <User size={20} />,
         label: "Profile",
         href: "/profile",
-        color: "#34D399", // Lighter emerald
+        color: "#34D399",
         visible: ["admin", "teacher", "student", "parent"],
       },
       {
-        icon: "/setting.png",
+        icon: <Settings size={20} />,
         label: "Settings",
         href: "/settings",
-        color: "#6EE7B7", // Very light emerald
+        color: "#6EE7B7",
         visible: ["admin", "teacher", "student", "parent"],
       },
       {
-        icon: "/logout.png",
+        icon: <LogOut size={20} />,
         label: "Logout",
         href: "/logout",
-        color: "#F87171", // Red for logout
+        color: "#F87171",
         visible: ["admin", "teacher", "student", "parent"],
       },
     ],
@@ -160,20 +160,8 @@ const Menu = () => {
                       color: activeItem === item.label ? item.color : "gray",
                     }}
                   >
-                    <motion.div
-                      variants={iconVariants}
-                      whileHover="hover"
-                      className="relative"
-                    >
-                      <div
-                        className="absolute inset-0 rounded-full opacity-0 transition-opacity duration-300"
-                        style={{
-                          backgroundColor: item.color,
-                          opacity: activeItem === item.label ? 0.15 : 0,
-                          transform: "scale(1.5)",
-                        }}
-                      />
-                      <Image src={item.icon} alt="" width={20} height={20} />
+                    <motion.div whileHover={{ scale: 1.2, rotate: 5 }}>
+                      {item.icon}
                     </motion.div>
                     <motion.span
                       className="hidden lg:block font-medium"
