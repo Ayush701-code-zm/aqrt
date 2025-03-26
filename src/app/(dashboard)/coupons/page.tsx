@@ -124,7 +124,7 @@ export default function CouponsPage() {
     <div
       className={`px-4 sm:px-6 lg:px-8 py-8 
         
-      } min-h-full transition-colors duration-200`}
+      } min-h-full bg-white transition-colors duration-200`}
     >
       <div className="sm:flex sm:items-center sm:justify-between">
         <div>
