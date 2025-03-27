@@ -1,11 +1,26 @@
-// backend/controllers/authController.js
-const { supabase } = require("../config/supabaseClient");
-const bcrypt = require("bcryptjs");
+import { Request, Response } from "express";
+import { supabase } from "../config/supabaseClient";
+import bcrypt from "bcryptjs";
 
-const AuthController = {
-  signup: async (req, res) => {
+// Extend Request interface to include user
+interface AuthenticatedRequest extends Request {
+  user?: {
+    id: string;
+    email: string;
+    user_metadata?: {
+      name?: string;
+    };
+  };
+}
+
+class AuthController {
+  static async signup(req: Request, res: Response): Promise<Response> {
     try {
-      const { email, password, name } = req.body;
+      const { email, password, name } = req.body as {
+        email: string;
+        password: string;
+        name: string;
+      };
 
       // Hash password before storing
       const salt = await bcrypt.genSalt(10);
@@ -31,7 +46,7 @@ const AuthController = {
       }
 
       // Return user information
-      res.status(201).json({
+      return res.status(201).json({
         message: "User created successfully",
         user: {
           id: data.user?.id,
@@ -39,18 +54,21 @@ const AuthController = {
           name: data.user?.user_metadata?.name,
         },
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Signup error:", error);
-      res.status(500).json({
+      return res.status(500).json({
         message: "Internal server error",
         error: error.message,
       });
     }
-  },
+  }
 
-  login: async (req, res) => {
+  static async login(req: Request, res: Response): Promise<Response> {
     try {
-      const { email, password } = req.body;
+      const { email, password } = req.body as {
+        email: string;
+        password: string;
+      };
 
       // Attempt to sign in with Supabase
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -67,7 +85,7 @@ const AuthController = {
       }
 
       // Return user information
-      res.status(200).json({
+      return res.status(200).json({
         message: "Login successful",
         user: {
           id: data.user?.id,
@@ -75,16 +93,16 @@ const AuthController = {
           name: data.user?.user_metadata?.name,
         },
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login error:", error);
-      res.status(500).json({
+      return res.status(500).json({
         message: "Internal server error",
         error: error.message,
       });
     }
-  },
+  }
 
-  logout: async (req, res) => {
+  static async logout(req: Request, res: Response): Promise<Response> {
     try {
       // Sign out using Supabase
       const { error } = await supabase.auth.signOut();
@@ -98,49 +116,22 @@ const AuthController = {
       }
 
       // Successful logout
-      res.status(200).json({
+      return res.status(200).json({
         message: "Logout successful",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Logout error:", error);
-      res.status(500).json({
+      return res.status(500).json({
         message: "Internal server error",
         error: error.message,
       });
     }
-  },
+  }
 
-  resetPassword: async (req, res) => {
-    try {
-      const { email } = req.body;
-
-      // Trigger password reset in Supabase
-      const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-        // Optional redirect to your password reset page
-        redirectTo: "https://yourapp.com/reset-password",
-      });
-
-      if (error) {
-        return res.status(400).json({
-          message: "Password reset failed",
-          error: error.message,
-        });
-      }
-
-      res.status(200).json({
-        message: "Password reset email sent",
-      });
-    } catch (error) {
-      console.error("Password reset error:", error);
-      res.status(500).json({
-        message: "Internal server error",
-        error: error.message,
-      });
-    }
-  },
-
-  // Optional: Get current user profile
-  getCurrentUser: async (req, res) => {
+  static async getCurrentUser(
+    req: AuthenticatedRequest,
+    res: Response
+  ): Promise<Response> {
     try {
       // Assuming authMiddleware has already verified the user
       const user = req.user;
@@ -151,21 +142,21 @@ const AuthController = {
         });
       }
 
-      res.status(200).json({
+      return res.status(200).json({
         user: {
           id: user.id,
           email: user.email,
           name: user.user_metadata?.name,
         },
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Get user error:", error);
-      res.status(500).json({
+      return res.status(500).json({
         message: "Internal server error",
         error: error.message,
       });
     }
-  },
-};
+  }
+}
 
-module.exports = AuthController;
+export default AuthController;

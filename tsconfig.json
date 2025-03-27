@@ -27,8 +27,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/backend/controllers/authController.js",
-    "src/backend/routes/authRoutes.js"
+    "src/types/express.d.ts",
+    "src/backend/controllers/authController.ts",
+    "src/backend/routes/authRoutes.ts"
   ],
   "exclude": ["node_modules"]
 }
